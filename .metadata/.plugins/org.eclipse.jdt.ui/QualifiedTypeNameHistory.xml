@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="jakarta.servlet.http.HttpServlet"/>
+    <fullyQualifiedTypeName name="com.foodapp.daoimpl.UserDAOImpl"/>
+    <fullyQualifiedTypeName name="com.foodapp.model.User"/>
+    <fullyQualifiedTypeName name="com.foodapp.Controller.SecureData"/>
+    <fullyQualifiedTypeName name="java.security.Provider.Service"/>
+    <fullyQualifiedTypeName name="com.foodapp.Controller.MenuServlet"/>
+    <fullyQualifiedTypeName name="com.foodapp.daoimpl.RestaurantDAOImpl"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.annotation.WebServlet"/>
+    <fullyQualifiedTypeName name="com.foodapp.Controller.Cart"/>
+    <fullyQualifiedTypeName name="com.foodapp.dao.MenuDAO"/>
+    <fullyQualifiedTypeName name="com.foodapp.model.CartItem"/>
+    <fullyQualifiedTypeName name="com.foodapp.daoimpl.MenuDAOImpl"/>
+    <fullyQualifiedTypeName name="com.foodapp.model.Menu"/>
+    <fullyQualifiedTypeName name="com.mysql.cj.Session"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="com.foodapp.model.Orders"/>
+    <fullyQualifiedTypeName name="com.foodapp.daoimpl.OrdersDAOImpl"/>
+    <fullyQualifiedTypeName name="com.foodapp.model.OrderItem"/>
+    <fullyQualifiedTypeName name="com.foodapp.model.OrderHistory"/>
+    <fullyQualifiedTypeName name="com.foodapp.daoimpl.OrderItemDAOImpl"/>
+    <fullyQualifiedTypeName name="com.foodapp.dao.OrderHistoryDAO"/>
+    <fullyQualifiedTypeName name="com.foodapp.daoimpl.OrderHistoryDAOImpl"/>
+</qualifiedTypeNameHistroy>

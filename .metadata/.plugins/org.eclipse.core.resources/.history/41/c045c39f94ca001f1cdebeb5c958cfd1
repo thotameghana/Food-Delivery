@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie Hub</title>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFCq-asW9xNzq3UqVZjmYGosVKWtdFafHCFw&s">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9)), 
+                        url('https://images.unsplash.com/photo-1551218808-94e220e084d2') no-repeat center/cover;
+            color: #f9f9f9;
+            overflow: hidden;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+        }
+        .nav-buttons .button {
+            padding: 0.5rem 1.2rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .signup {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        .login {
+            background-color: #4ecdc4;
+            color: white;
+        }
+        .button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+            padding: 2rem;
+        }
+        .text-content {
+            margin-top: 4rem;
+        }
+        .animated-text {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #ffdf91;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+            margin-bottom: 1rem;
+        }
+        .description {
+            font-size: 1.5rem;
+            color: #ffedd5;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+            margin-bottom: 2rem;
+        }
+        .call-to-action {
+            display: flex;
+            gap: 1rem;
+        }
+        .cta-button {
+            padding: 0.8rem 2rem;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #ff3b3b;
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+        }
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+            .animated-text {
+                font-size: 2rem;
+            }
+            .description {
+                font-size: 1.2rem;
+            }
+            .cta-button {
+                font-size: 1rem;
+                padding: 0.6rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🍔 FoodieHub</div>
+        <div class="nav-buttons">
+            <a href="register.jsp"><button class="button signup">Sign Up</button></a>
+            <a href="login.jsp"><button class="button login">Login</button></a>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="text-content">
+            <h1 class="animated-text">Welcome to FoodieHub</h1>
+            <p class="description">Let food be the medicine, and medicine be the food. Discover the best tastes around you!</p>
+        </div>
+    </div>
+</body>
+</html>

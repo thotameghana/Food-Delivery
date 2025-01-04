@@ -1,0 +1,66 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.*,com.foodapp.model.*"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Home</title>
+	<link rel="stylesheet" href="./styles/home.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+	<nav class="navbar">
+    <div class="navbar-logo">
+        <img src="path/to/your/logo.png" alt="Foodie Hub Logo" class="logo">
+    </div>
+    <div class="navbar-search">
+        <input type="text" placeholder="Search restaurants...">
+        <button class="search-btn">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+    <div class="navbar-actions">
+        <button class="cart-btn">
+            <i class="fas fa-shopping-cart"></i>
+        </button>
+        <button class="signout-btn">Sign Out</button>
+        <div class="profile-photo">
+            <i class="fas fa-user"></i>
+        </div>
+    </div>
+</nav>
+	<h1 id="welcome">Welcome
+		<%= ((User) session.getAttribute("user")).getUserName() %>
+	</h1>
+	<div class="container">
+		<div class="restaurant-grid">
+			<%
+        ArrayList<Restaurant> restaurants = (ArrayList<Restaurant>) session.getAttribute("restaurants");
+        for (Restaurant res : restaurants) {
+    	%>
+			<div class="restaurant-card">
+				<a href="MenuServlet?restaurantId=<%= res.getRestaurantId() %>" style="text-decoration:none">
+				<img src="<%=res.getImagePath() %>" alt="Restaurant" height="200px"
+					width="200px">
+					<div class="restaurant-info">
+					<div class="restaurant-header">
+						<div class="restaurant-name"> <%= res.getName() %></div>
+						<div class="restaurant-rating">&#9733; 4.5</div>
+					</div>
+					<div class="restaurant-details">
+						<div><%= res.getCuisineType() %></div>
+						<div><%= res.getDeliveryTime() %> mins</div>
+						<div class="restaurant-availability available"><%= res.isActive()?"Active":"Closed" %></div>
+					</div>	
+				</div>
+				</a>
+			</div>
+			<%
+       			 }
+    		%>
+		</div>
+	</div>
+</body>
+</html>

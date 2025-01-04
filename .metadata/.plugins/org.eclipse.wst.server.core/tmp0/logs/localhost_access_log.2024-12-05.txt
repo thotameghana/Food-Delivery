@@ -1,0 +1,17 @@
+127.0.0.1 - - [05/Dec/2024:13:02:26 +0530] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [05/Dec/2024:13:02:30 +0530] "GET /FoodApplication/register.jsp HTTP/1.1" 200 1671
+0:0:0:0:0:0:0:1 - - [05/Dec/2024:13:02:30 +0530] "GET /favicon.ico HTTP/1.1" 404 762
+0:0:0:0:0:0:0:1 - - [05/Dec/2024:13:03:38 +0530] "POST /FoodApplication/Register HTTP/1.1" 200 -
+0:0:0:0:0:0:0:1 - - [05/Dec/2024:13:04:16 +0530] "POST /FoodApplication/Register HTTP/1.1" 200 -
+127.0.0.1 - - [05/Dec/2024:13:06:47 +0530] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [05/Dec/2024:13:06:48 +0530] "GET /FoodApplication/register.jsp HTTP/1.1" 200 1671
+0:0:0:0:0:0:0:1 - - [05/Dec/2024:13:07:15 +0530] "POST /FoodApplication/Register HTTP/1.1" 200 17
+0:0:0:0:0:0:0:1 - - [05/Dec/2024:13:07:21 +0530] "POST /FoodApplication/Register HTTP/1.1" 200 18
+127.0.0.1 - - [05/Dec/2024:13:09:25 +0530] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [05/Dec/2024:13:09:26 +0530] "GET /FoodApplication/register.jsp HTTP/1.1" 200 1671
+0:0:0:0:0:0:0:1 - - [05/Dec/2024:13:09:46 +0530] "POST /FoodApplication/Register HTTP/1.1" 200 21
+127.0.0.1 - - [05/Dec/2024:13:16:20 +0530] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [05/Dec/2024:13:16:22 +0530] "GET /FoodApplication/register.jsp HTTP/1.1" 200 1713
+0:0:0:0:0:0:0:1 - - [05/Dec/2024:13:16:22 +0530] "GET /FoodApplication/style.css HTTP/1.1" 200 1868
+0:0:0:0:0:0:0:1 - - [05/Dec/2024:13:18:16 +0530] "GET /FoodApplication/Login.html HTTP/1.1" 404 781
+0:0:0:0:0:0:0:1 - - [05/Dec/2024:13:18:36 +0530] "POST /FoodApplication/Register HTTP/1.1" 200 21

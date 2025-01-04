@@ -1,0 +1,202 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ page import="com.foodapp.Controller.Cart, com.foodapp.Controller.CartItem" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">    
+<title>Shopping Cart</title>
+<link rel="stylesheet" href="./styles/cart.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+    h1 {
+        background-color: #2196f3;
+        color: white;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+    .cart-items {
+        padding: 20px;
+    }
+    .cart-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+    }
+    .cart-item:last-child {
+        border-bottom: none;
+    }
+    .item-image {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+    .item-details {
+        flex-grow: 1;
+    }
+    .item-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .item-price, .item-total {
+        color: #666;
+    }
+    .item-quantity {
+        display: flex;
+        align-items: center;
+    }
+    .quantity-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .quantity-value {
+        margin: 0 10px;
+    }
+    .remove-btn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 20px; /* Moves the remove button to the next line */
+        transition: background-color 0.3s ease, transform 0.3s ease; /* Added animation */
+    }
+    .remove-btn:hover {
+        background-color: #e53935; /* Darker red on hover */
+        transform: scale(1.1); /* Slightly increase size */
+    }
+    .cart-summary {
+        background-color: #f9f9f9;
+        padding: 20px;
+        text-align: right;
+    }
+    .total-price {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    .cart-buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+    .cart-btn {
+        flex: 1;
+        margin: 0 5px;
+        padding: 10px;
+        font-size: 16px;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .checkout-btn {
+        background-color: #2196f3;
+    }
+    .add-items-btn {
+        background-color: #4CAF50;
+    }
+    .clear-cart-btn {
+        background-color: #f44336;
+    }
+    /* Hover effects for buttons */
+    .cart-btn:hover {
+        transform: scale(1.05); /* Slightly enlarge the buttons */
+    }
+    .checkout-btn:hover {
+        background-color: #1976D2; /* Darker blue for checkout */
+    }
+    .add-items-btn:hover {
+        background-color: #388E3C; /* Darker green for add items */
+    }
+    .clear-cart-btn:hover {
+        background-color: #d32f2f; /* Darker red for clear cart */
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <div class="cart-items">
+            <%               
+                Cart cart = (Cart) session.getAttribute("cart");
+                if (cart == null || cart.getAllItems().isEmpty()) {
+            %>
+            <div class="empty-cart">
+                <p>Nothing is there in the cart</p>
+                <p><a href="MenuServlet?restaurantId=<%= session.getAttribute("restaurantId") %>" style="text-decoration:none">Click here</a> to surf into the menu</p>
+            </div>
+            <%
+                } else {
+                    long totalAmount = 0;
+                    for (CartItem cartItem : cart.getAllItems().values()) {
+                    	int itemTotal = cartItem.getQuantity() * cartItem.getPrice();
+                        totalAmount += itemTotal;
+            %>
+            <div class="cart-item">
+                <img src="/placeholder.svg?height=80&width=80&text=🍕" alt="<%= cartItem.getName() %>" class="item-image">
+                <div class="item-details">
+                    <div class="item-name"><%= cartItem.getName() %></div>
+                    <div class="item-price">Price: <%= cartItem.getPrice() %></div>
+                    <div class="item-total">Total: <%=itemTotal%></div>
+                </div>
+                <div class="item-quantity">
+                    <form action="CartServlet" method="post">
+                        <input type="hidden" name="action" value="update">
+                        <input type="hidden" name="itemId" value="<%= cartItem.getCartItemId() %>">
+                        <button type="submit" name="quantity" value="<%= cartItem.getQuantity() - 1 %>">-</button>
+                        <span><%= cartItem.getQuantity() %></span>
+                        <button type="submit" name="quantity" value="<%= cartItem.getQuantity() + 1 %>">+</button>
+                    </form>
+                </div>
+                <form action="CartServlet" method="post">
+                    <input type="hidden" name="action" value="remove">
+                    <input type="hidden" name="itemId" value="<%= cartItem.getCartItemId() %>"><br><br>
+                    <button type="submit" class="remove-btn" aria-label="Remove item">Remove</button>
+                </form>
+            </div>
+            <%
+                    }
+            %>
+            <div class="total-price">
+                <h3>Total Amount: <%= totalAmount %></h3>
+            </div>
+            <%
+                }
+            %>
+        </div>
+        <div class="cart-summary">
+            <div class="cart-buttons">
+                <form action="CartServlet" method="post">
+                    <input type="hidden" name="action" value="clear">
+                    <button type="submit" class="cart-btn clear-cart-btn">Clear Cart</button>
+                </form>
+                <a href="MenuServlet?restaurantId=<%= session.getAttribute("restaurantId") %>" style="text-decoration:none" class="cart-btn add-items-btn">Add More Items</a>
+                <a href="checkout.jsp"><button class="cart-btn checkout-btn">Proceed to Checkout</button></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

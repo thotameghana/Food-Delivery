@@ -1,0 +1,96 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.*,com.foodapp.model.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Menu</title>
+    <link rel="stylesheet" href="./styles/menu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="./logo/fast-food.png" alt="Foodie Hub Logo" class="logo">
+        </div>
+        <div class="navbar-search">
+            <input type="text" placeholder="Search Menu..." id="search-box">
+            <button class="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <div class="navbar-actions">
+            <button class="cart-btn">
+                <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="signout-btn">Sign Out</button>
+            <div class="profile-photo">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </nav>
+
+    <%
+        // Retrieve and cast the session attributes
+        Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
+    %>
+    <h1><%= restaurant.getName() %></h1>
+    <h3><%= restaurant.getAddress() %></h3>
+
+    <div class="menu-container">
+        <%
+            ArrayList<Menu> menu = (ArrayList<Menu>) session.getAttribute("menu");
+            for (Menu m : menu) {
+        %>
+        <div class="menu-item" data-name="<%= m.getName().toLowerCase() %>">
+            <div class="menu-item-info">
+                <div class="menu-item-name"><%= m.getName() %></div>
+                <div class="menu-item-price">&#8377;<%= m.getPrice() %></div>
+                <div class="menu-item-description"><%= m.getDescription() %></div>
+                <div class="menu-item-status">
+                    <%= m.isActive() ? "Available" : "Not Available" %>
+                </div>
+            </div>
+            <div class="menu-item-image-container">
+                <img src="<%= m.getImagePath() %>" alt="<%= m.getName() %>" class="menu-item-image">
+                <form action="CartServlet" method="get">
+                    <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="itemId" value="<%= m.getMenuId() %>">
+                    <input type="submit" class="add-to-cart" value="Add">
+                </form>
+            </div>
+        </div>
+        <%
+            }
+        %>
+    </div>
+    <div id="no-results" style="text-align: center; display: none;">No results found.</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const searchBox = document.getElementById("search-box");
+            const menuItems = document.querySelectorAll(".menu-item");
+            const noResults = document.getElementById("no-results");
+
+            searchBox.addEventListener("input", () => {
+                const query = searchBox.value.toLowerCase().trim();
+                let matches = 0;
+
+                menuItems.forEach(item => {
+                    const name = item.getAttribute("data-name");
+                    if (name.includes(query)) {
+                        item.style.display = "flex"; // Show matching items
+                        matches++;
+                    } else {
+                        item.style.display = "none"; // Hide non-matching items
+                    }
+                });
+
+                // Show or hide the "No Results Found" message
+                noResults.style.display = matches ? "none" : "block";
+            });
+        });
+    </script>
+</body>
+</html>

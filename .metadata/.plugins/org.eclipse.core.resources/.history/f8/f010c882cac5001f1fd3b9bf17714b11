@@ -1,0 +1,80 @@
+package com.foodapp.Controller;
+
+import java.io.IOException;
+
+import com.foodapp.dao.MenuDAO;
+import com.foodapp.daoimpl.MenuDAOImpl;
+import com.foodapp.model.Menu;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+public class CartServlet extends HttpServlet {
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	    try {
+	        HttpSession session = req.getSession();
+	        Cart cart = (Cart) session.getAttribute("cart");
+	        
+	        if (cart == null) {
+	            cart = new Cart();
+	            session.setAttribute("cart", cart);
+	        }
+
+	        String action = req.getParameter("action");
+	        if ("add".equals(action)) {
+	            addItemToCart(req, cart);
+	        } else {
+	            // Handle other actions like "update", "remove"
+	        }
+
+	        session.setAttribute("cart", cart);
+	        resp.sendRedirect("cart.jsp");
+	    } catch (Exception e) {
+	        e.printStackTrace(); // Replace with proper logging
+	        resp.sendRedirect("error.jsp"); // Redirect to an error page
+	    }
+	}
+
+	private void addItemToCart(HttpServletRequest request, Cart cart) throws NumberFormatException {
+	    String itemIdParam = request.getParameter("itemId");
+	    String quantityParam = request.getParameter("quantity");
+
+	    if (itemIdParam == null || quantityParam == null) {
+	        throw new IllegalArgumentException("Item ID or quantity missing");
+	    }
+
+	    int itemId = Integer.parseInt(itemIdParam);
+	    int quantity = Integer.parseInt(quantityParam);
+
+	    if (quantity <= 0) {
+	        throw new IllegalArgumentException("Quantity must be greater than zero");
+	    }
+
+	    MenuDAO menuDAO = new MenuDAOImpl();
+	    Menu menuItem = menuDAO.fetchSpecific(itemId);
+
+	    if (menuItem == null) {
+	        throw new IllegalArgumentException("Invalid menu item ID");
+	    }
+
+	    CartItem item = new CartItem(
+	        menuItem.getMenuId(),
+	        menuItem.getRestaurantId(),
+	        menuItem.getName(),
+	        quantity,
+	        menuItem.getPrice()
+	    );
+
+	    cart.addItem(item);
+
+	    HttpSession session = request.getSession();
+	    session.setAttribute("restaurantId", menuItem.getRestaurantId());
+	}
+}
+
+

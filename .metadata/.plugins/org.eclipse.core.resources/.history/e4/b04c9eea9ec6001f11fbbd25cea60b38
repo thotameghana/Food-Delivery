@@ -1,0 +1,38 @@
+package com.foodapp.Controller;
+
+import java.io.IOException;
+import java.sql.Date;
+
+import com.foodapp.model.User;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+
+public class Checkout extends HttpServlet {
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		HttpSession session = req.getSession();
+		User u=(User) session.getAttribute("user");
+		int userId=u.getUserId();
+		System.out.println("User id :"+userId);
+		int restaurantId=(int) session.getAttribute("restaurantId");
+		System.out.println("restaurant id: "+restaurantId);
+		Cart cart=(Cart) session.getAttribute("cart");
+		
+		System.out.println(LocalDate.now());
+		int totalAmount=0;
+		for(CartItem ci:cart.getAllItems().values()) {
+			totalAmount+=ci.getQuantity()*ci.getPrice();
+		}
+		System.out.println(totalAmount);
+		
+		String paymentMode=req.getParameter("payment");
+		System.out.println(paymentMode);
+		
+	}
+}

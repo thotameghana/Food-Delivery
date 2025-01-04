@@ -1,0 +1,42 @@
+package com.foodapp.Controller;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+
+import com.foodapp.model.Orders;
+import com.foodapp.model.User;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+
+public class Checkout extends HttpServlet {
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		HttpSession session = req.getSession();
+		User u=(User) session.getAttribute("user");
+		if(u==null) {
+			resp.sendRedirect("login.jsp");
+			return;
+		}
+		Cart cart=(Cart) session.getAttribute("cart");
+		if(cart==null || cart.getAllItems().isEmpty()) {
+			resp.sendRedirect("menu.jsp");
+			return;
+		}
+		int userId=u.getUserId();
+		int restaurantId=(int) session.getAttribute("restaurantId");
+		String dateTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
+		int totalAmount=0;
+		for(CartItem ci:cart.getAllItems().values()) {
+			totalAmount+=ci.getQuantity()*ci.getPrice();
+		}	
+		String paymentMode=req.getParameter("payment");
+		
+		Orders o=new Orders(userId, restaurantId, totalAmount, dateTime, paymentMode);
+	}
+}
